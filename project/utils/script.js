@@ -9,9 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
       links.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
 
+      sections.forEach(section => section.classList.remove('active'));
       sections.forEach(section => section.classList.add('d-none'));
+
       const target = link.getAttribute('data-target');
-      document.getElementById(target).classList.remove('d-none');
+      const targetSection = document.getElementById(target);
+      targetSection.classList.remove('d-none');
+      targetSection.classList.add('active');
     });
   });
 });
