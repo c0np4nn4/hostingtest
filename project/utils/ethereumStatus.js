@@ -33,7 +33,7 @@ $(document).ready(function() {
                     <div class="col-md-12 text-center">
                       <div class="price-box d-flex align-items-center justify-content-center">
                         <img src="eth_logo.png" alt="Ethereum Logo" class="eth-logo me-3" style="width: 100px; height: auto;" />
-                        <h2>Ethereum Price: $${price}</h2>
+                        <h2>ETH Price: $${price}</h2>
                       </div>
                     </div>
                   </div>
