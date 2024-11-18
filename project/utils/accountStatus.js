@@ -123,44 +123,6 @@ $(document).ready(function() {
     }
   }
 
-  // async function getRecentTransactions(address) {
-  //   const response = await fetch(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`, {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       id: 1,
-  //       jsonrpc: "2.0",
-  //       method: "alchemy_getAssetTransfers",
-  //       params: [
-  //         {
-  //           fromAddress: address,
-  //           toAddress: address,
-  //           category: ["external", "erc20", "erc721", "erc1155"],
-  //           withMetadata: true,
-  //           maxCount: "5",
-  //           order: "desc"
-  //         }
-  //       ],
-  //     }),
-  //   });
-
-  //   const data = await response.json();
-  //   if (data.result) {
-  //     return data.result.transfers.map(tx => ({
-  //       hash: tx.hash,
-  //       from: tx.from,
-  //       to: tx.to,
-  //       value: (parseInt(tx.value, 16) / 1e18).toFixed(3),
-  //       timestamp: new Date(tx.metadata.blockTimestamp).getTime() / 1000
-  //     }));
-  //   } else {
-  //     return [];
-  //   }
-  // }
-
   async function getRecentTransactions(address) {
     const response = await $.ajax({
       url: API_URL,

@@ -18,7 +18,6 @@ $(document).ready(function() {
     `;
     $('#content-area').html(content);
 
-    // 폼 제출 이벤트 핸들러 설정
     $('#tracker-form').on('submit', async function(e) {
       e.preventDefault();
       const address = $('#eth-address').val().trim().toLowerCase();
@@ -53,12 +52,10 @@ $(document).ready(function() {
         const graphData = { nodes: [], links: [] };
         const processedAddresses = new Map(); // Map to store addresses and types
 
-        // 메인 주소 (A) 추가
         const mainAddressShort = shortenAddress(address);
         graphData.nodes.push({ id: mainAddressShort, type: 'EOA', isMain: true });
         processedAddresses.set(address, { type: 'EOA', shortId: mainAddressShort });
 
-        // 트랜잭션을 통한 노드 및 링크 추가
         await Promise.all(transactions.map(async (tx) => {
           const from = tx.from.toLowerCase();
           const to = tx.to.toLowerCase();
@@ -125,7 +122,7 @@ $(document).ready(function() {
   }
 
   function drawGraph(graphData) {
-    $('#graph-area').html(''); // 이전 그래프 클리어
+    $('#graph-area').html('');
 
     const width = $('#graph-area').width();
     const height = $('#graph-area').height();
@@ -148,7 +145,7 @@ $(document).ready(function() {
       .selectAll("line")
       .data(graphData.links)
       .enter().append("line")
-      .attr("stroke-width", d => d.value * 2 + 1) // 링크 두께를 거래 값에 비례하게 설정
+      .attr("stroke-width", d => d.value * 2 + 1)
       .attr("stroke", "#999");
 
     const node = svg.append("g")
@@ -165,7 +162,7 @@ $(document).ready(function() {
         .on("drag", dragged)
         .on("end", dragended));
 
-    // 각 노드 위에 텍스트 레이블 추가
+    // Add text label on the node
     svg.append("g")
       .attr("class", "labels")
       .selectAll("text")
