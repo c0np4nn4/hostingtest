@@ -5,7 +5,7 @@ body {
 }
 
 .sidebar {
-  height: 100vh;
+  min-height: 80vh;
   border-right: 1px solid #ddd;
 }
 

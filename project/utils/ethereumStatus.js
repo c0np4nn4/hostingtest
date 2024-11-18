@@ -76,7 +76,7 @@ $(document).ready(function() {
                   <div class="row">
                     <div class="col-md-6">
                       <div class="block-box card p-3 mb-3">
-                        <h3>Recent Blocks</h3>
+                        <h3>📦 Recent Blocks</h3>
                         ${blocks.map(block => `
                           <div class="block-item card mt-2 p-2" data-block="${block.number}" style="cursor: pointer;">
                             <p>Block #${block.number}</p>
@@ -89,7 +89,7 @@ $(document).ready(function() {
                     </div>
                     <div class="col-md-6">
                       <div class="transaction-box card p-3 mb-3">
-                        <h3>Recent Transactions</h3>
+                        <h3>📜 Recent Transactions</h3>
                         ${transactions.map(tx => `
                           <div class="transaction-item card mt-2 p-2" data-hash="${tx.hash}" style="cursor: pointer;">
                             <p>Transaction Hash: ${shortenAddress(tx.hash)}</p>
