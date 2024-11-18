@@ -29,6 +29,24 @@ body {
   height: 100vh;
 }
 
-.graph-area {
-  border: 1px solid red;
+.block-item,
+.transaction-item {
+  transition: background-color 0.3s ease;
+}
+
+.block-item:hover,
+.transaction-item:hover {
+  background-color: #f0f0f0;
+}
+
+.eth-logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.price-box {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
 }
