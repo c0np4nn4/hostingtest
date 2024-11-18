@@ -27,18 +27,6 @@
 
       <!-- Main Content -->
       <main class="col-md-10 p-4" id="content-area">
-        <div id="ethereum-status" class="content-section">
-          <h2>Ethereum Status</h2>
-          <p>Loading Ethereum status...</p>
-        </div>
-        <div id="account-status" class="content-section d-none">
-          <h2>Account Status</h2>
-          <p>Loading account information...</p>
-        </div>
-        <div id="account-tracker" class="content-section d-none">
-          <h2>Account Tracker</h2>
-          <p>Tracking account transactions...</p>
-        </div>
       </main>
     </div>
   </div>
@@ -46,8 +34,14 @@
   <footer class="bg-dark text-white text-center py-3">
     <p>&copy; c0np4nn4</p>
   </footer>
-  <script src="utils/script.js">
-  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <script src="utils/constants.js"></script>
+  <script src="utils/ethereumStatus.js"></script>
+  <script src="utils/accountStatus.js"></script>
+  <script src="utils/accountTracker.js"></script>
 </body>
 
 </html>

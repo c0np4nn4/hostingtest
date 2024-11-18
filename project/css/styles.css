@@ -26,4 +26,9 @@ body {
 
 .content-section.active {
   display: block;
+  height: 100vh;
+}
+
+.graph-area {
+  border: 1px solid red;
 }

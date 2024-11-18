@@ -1,0 +1,3 @@
+const API_URL = 'https://api-sepolia.etherscan.io/api'
+const API_KEY = '**********************************'
+
