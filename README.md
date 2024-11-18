@@ -6,7 +6,7 @@
 
 ## How to Run
 1. Clone this repository to your local machine.
-2. Set up an API key from [Etherscan](https://etherscan.io) and add it to your `utils/constants.js` file. (if none, you should make one!)
+2. Set up an API key from [Etherscan](https://etherscan.io) and [Alchemy](https://www.alchemy.com/) and add it to your `utils/constants.js` file. (if none, you should make one!)
 3. Open `index.html`!
 
 
@@ -14,7 +14,7 @@
 
 ### 1. Ethereum Status
 Get real-time information about the Ethereum network, including:
-- **Current Ethereum Price**: Displayed in major fiat currencies.
+- **Current Ethereum Price**: Displayed in major fiat currencies(USD).
 - **Latest Block Information**: Details of the most recently mined block, including block number and miner information.
 - **Recent Transactions**: A list of the latest transactions on the Ethereum network, with key details such as sender, recipient, and transaction value.
 
