@@ -50,3 +50,31 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
 }
+
+#dashboard-title {
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+#price-chart svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.tooltip {
+  position: absolute;
+  background: #fff;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
