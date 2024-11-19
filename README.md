@@ -1,5 +1,7 @@
 # Air Quality Monitoring Dashboard
 
+> 201824590 조승현
+
 ## Overview
 The **Air Quality Monitoring Dashboard** is a web-based application that allows users to monitor real-time air quality and visualize weather data for different cities. Users can search by city name, view temperature, humidity, and pollution levels, and see a visual representation of the data using various charts.
 
