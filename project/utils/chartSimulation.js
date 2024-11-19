@@ -11,6 +11,7 @@ $(document).ready(function() {
     SO2: [],
     VOC: []
   };
+  let dates = [];
 
   function fetchLatLonByCity(cityName) {
     const geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
@@ -22,14 +23,15 @@ $(document).ready(function() {
           const city = { lat: data[0].lat, lon: data[0].lon };
           $('#vis-current-city').text(`Current city: ${cityName}`);
           fetchWeatherForecast(city);
+          fetchAirPollutantData(city);
         } else {
           console.error('City not found');
-          $('#current-city').text('City not found');
+          $('#vis-current-city').text('City not found');
         }
       },
       error: function(error) {
         console.error('Error fetching geocode data:', error);
-        $('#current-city').text('Error fetching geocode data');
+        $('#vis-current-city').text('Error fetching geocode data');
       }
     });
   }
@@ -46,14 +48,11 @@ $(document).ready(function() {
           const main = entry.weather[0].main;
           return main === 'Clear' ? 'Sunny' : main;
         });
-        // For simplicity, simulate pollutant levels
-        pollutantData.PM25 = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.PM10 = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.NOx = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.NH3 = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.CO2 = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.SO2 = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
-        pollutantData.VOC = Array.from({ length: 5 }, (_, _i) => Math.floor(Math.random() * 100));
+        dates = data.list.slice(0, 30).map(entry => entry.dt_txt);
+        if (dates.length !== temperatureData.length || dates.length !== humidityData.length) {
+          console.error('Error: Labels and data lengths do not match');
+          return;
+        }
         renderCharts();
       },
       error: function(error) {
@@ -62,9 +61,33 @@ $(document).ready(function() {
     });
   }
 
-  // Render charts function
+  function fetchAirPollutantData(city) {
+    const currentTime = Math.floor(Date.now() / 1000);
+    const startTime = currentTime - (5 * 24 * 60 * 60);
+    const pollutantUrl = `http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${city.lat}&lon=${city.lon}&start=${startTime}&end=${currentTime}&appid=${API_KEY}`;
+    $.ajax({
+      url: pollutantUrl,
+      method: 'GET',
+      success: function(data) {
+        if (data.list && data.list.length >= 5) {
+          pollutantData.PM25 = data.list.slice(-5).map(entry => entry.components.pm2_5);
+          pollutantData.PM10 = data.list.slice(-5).map(entry => entry.components.pm10);
+          pollutantData.NOx = data.list.slice(-5).map(entry => entry.components.no2);
+          pollutantData.NH3 = data.list.slice(-5).map(entry => entry.components.nh3);
+          pollutantData.CO2 = data.list.slice(-5).map(entry => entry.components.co / 10);
+          pollutantData.SO2 = data.list.slice(-5).map(entry => entry.components.so2);
+          renderCharts();
+        } else {
+          console.error('Insufficient pollutant data available');
+        }
+      },
+      error: function(error) {
+        console.error('Error fetching air pollutant data:', error);
+      }
+    });
+  }
+
   function renderCharts() {
-    // Destroy existing charts to prevent the "Canvas is already in use" error
     if (window.temperatureChart) {
       window.temperatureChart.destroy();
     }
@@ -78,12 +101,11 @@ $(document).ready(function() {
       window.pollutantBarChart.destroy();
     }
 
-    // Temperature Line Chart
     const ctxLineTemp = document.getElementById('temperature-chart').getContext('2d');
     window.temperatureChart = new Chart(ctxLineTemp, {
       type: 'line',
       data: {
-        labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
+        labels: dates.map(date => moment(date).format('YYYYMMDD')),
         datasets: [{
           label: 'Temperature (°C)',
           data: temperatureData,
@@ -96,7 +118,7 @@ $(document).ready(function() {
         responsive: true,
         animation: {
           duration: 2000,
-          easing: 'easeInOutQuart'
+          easing: 'easeInBounce'
         },
         scales: {
           y: {
@@ -106,12 +128,11 @@ $(document).ready(function() {
       },
     });
 
-    // Humidity Line Chart
     const ctxLineHum = document.getElementById('humidity-chart').getContext('2d');
     window.humidityChart = new Chart(ctxLineHum, {
       type: 'line',
       data: {
-        labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
+        labels: dates.map(date => moment(date).format('YYYYMMDD')),
         datasets: [{
           label: 'Humidity (%)',
           data: humidityData,
@@ -130,12 +151,11 @@ $(document).ready(function() {
       },
     });
 
-    // Pollutant Bar Chart
     const ctxBar = document.getElementById('pollutant-bar-chart').getContext('2d');
     window.pollutantBarChart = new Chart(ctxBar, {
       type: 'bar',
       data: {
-        labels: Array.from({ length: 5 }, (_, i) => `Day ${i + 1}`),
+        labels: dates.slice(-5).map(date => moment(date).format('YYYYMMDD')),
         datasets: [
           {
             label: 'PM2.5',
@@ -167,11 +187,6 @@ $(document).ready(function() {
             data: pollutantData.SO2,
             backgroundColor: 'rgba(153, 102, 255, 0.8)'
           },
-          {
-            label: 'VOC',
-            data: pollutantData.VOC,
-            backgroundColor: 'rgba(201, 203, 207, 0.8)'
-          }
         ]
       },
       options: {
@@ -184,7 +199,6 @@ $(document).ready(function() {
       },
     });
 
-    // Weather Doughnut Chart
     const weatherCounts = weatherMockData.reduce((acc, weather) => {
       acc[weather] = (acc[weather] || 0) + 1;
       return acc;
@@ -213,13 +227,11 @@ $(document).ready(function() {
     });
   }
 
-  // Initialize page with default view and fetch data for a default city
   $('#data-section').show();
   $('#visual-representation-section').hide();
   const defaultCityName = 'Seoul';
   fetchLatLonByCity(defaultCityName);
 
-  // Handling tab navigation using navigation.js logic
   $('#nav-city-data').on('click', function() {
     $('#data-section').show();
     $('#visual-representation-section').hide();
@@ -234,7 +246,6 @@ $(document).ready(function() {
     $(this).addClass('active');
   });
 
-  // Handling new city input and fetching data
   $('#fetch-temperature-data').on('click', function() {
     const cityName = $('#temperature-city-input').val();
     if (cityName) {
