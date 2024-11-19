@@ -232,20 +232,6 @@ $(document).ready(function() {
   const defaultCityName = 'Seoul';
   fetchLatLonByCity(defaultCityName);
 
-  $('#nav-city-data').on('click', function() {
-    $('#data-section').show();
-    $('#visual-representation-section').hide();
-    $('.nav-link').removeClass('active');
-    $(this).addClass('active');
-  });
-
-  $('#nav-visualize').on('click', function() {
-    $('#data-section').hide();
-    $('#visual-representation-section').show();
-    $('.nav-link').removeClass('active');
-    $(this).addClass('active');
-  });
-
   $('#fetch-temperature-data').on('click', function() {
     const cityName = $('#temperature-city-input').val();
     if (cityName) {
