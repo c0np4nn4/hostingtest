@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
   let currentCity = 'Seoul';
   $('#city-input').val(currentCity);

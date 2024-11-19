@@ -13,7 +13,7 @@ The dashboard features:
 The application leverages **OpenWeather API** for data retrieval, **Chart.js** for data visualization, and **Bootstrap** for styling.
 
 ## Key Features
-- **Real-time Air Quality Data**: View up-to-date information on pollutants like PM2.5, PM10, NOx, SO2, NH3, and CO levels.
+- **Real-time Air Quality Data**: View up-to-date information on pollutants like PM2.5, PM10, NOx, SO2, NH3, CO, and NO levels.
 - **Weather Metrics**: Temperature and humidity data presented in a clear, user-friendly way.
 - **Air Quality Status**: Color-coded indicators and emoji-based feedback on air quality ranging from good to unhealthy.
 - **Data Visualization**: Interactive line and bar charts displaying trends in temperature, humidity, and pollutant levels.
@@ -65,13 +65,14 @@ The Air Quality Monitoring Dashboard allows users to either manually input a cit
    - **Air Pollution Data**: Air pollutant levels are fetched using OpenWeather's Air Pollution API.
 3. **Color Coding and Emoji Display**:
    - The air quality status is dynamically displayed next to the current city name, with emojis representing different air quality levels:
-     - 😊 (Good): Green color, PM2.5 and PM10 levels are in acceptable ranges.
-     - 😐 (Moderate): Orange color, moderate levels of pollutants.
-     - ☹️ (Unhealthy): Red color, high levels of pollutants.
+     - 😊 (Good): Green color, PM2.5, PM10, NO2, SO2, CO, NH3, and NO levels are in acceptable ranges.
+     - 😐 (Moderate): Orange color, moderate levels of some pollutants.
+     - ☹️ (Unhealthy for Sensitive Groups): Yellow color, elevated pollutant levels that might affect sensitive groups.
+     - 😷 (Unhealthy): Red color, high levels of multiple pollutants.
 4. **Charts and Graphs**: The visual representation section provides a graphical view of historical weather and pollution trends.
    - **Temperature Chart**: Shows temperature trends over the past 30 time periods.
    - **Humidity Chart**: Displays the humidity trend.
-   - **Pollutant Chart**: A bar chart showcasing pollutant levels (PM2.5, PM10, NOx, etc.) over time.
+   - **Pollutant Chart**: A bar chart showcasing pollutant levels (PM2.5, PM10, NOx, NH3, CO, SO2, etc.) over time.
 
 ## How to Use the Dashboard
 1. **Search for a City**: Use the input field at the top of the dashboard to type in a city name and click "Get Data". The current temperature, humidity, and pollutant levels will be displayed.
@@ -82,5 +83,3 @@ The Air Quality Monitoring Dashboard allows users to either manually input a cit
 ## Troubleshooting
 - **API Key Issues**: Make sure the OpenWeather API key is valid. The `constants.js` file must be correctly configured.
 - **Data Not Displaying**: Double-check if the API key is properly entered, and that there's no CORS or network error.
-
-
