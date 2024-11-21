@@ -14,7 +14,7 @@ $(document).ready(function() {
   let dates = [];
 
   function fetchLatLonByCity(cityName) {
-    const geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
     $.ajax({
       url: geocodeUrl,
       method: 'GET',
@@ -64,7 +64,7 @@ $(document).ready(function() {
   function fetchAirPollutantData(city) {
     const currentTime = Math.floor(Date.now() / 1000);
     const startTime = currentTime - (5 * 24 * 60 * 60);
-    const pollutantUrl = `http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${city.lat}&lon=${city.lon}&start=${startTime}&end=${currentTime}&appid=${API_KEY}`;
+    const pollutantUrl = `https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${city.lat}&lon=${city.lon}&start=${startTime}&end=${currentTime}&appid=${API_KEY}`;
     $.ajax({
       url: pollutantUrl,
       method: 'GET',
