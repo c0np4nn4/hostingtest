@@ -11,12 +11,12 @@
 
 <body>
   <!-- Header -->
-  <header class="bg-primary text-white text-center py-3">
+  <header class="text-white text-center py-3"
+    style="background-image: url('https://images.unsplash.com/photo-1688068705061-0305b5828e58?q=80&w=2542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; min-height: 300px; line-height: 300px">
     <h1>Air Quality Monitoring Dashboard</h1>
-    <p>Real-time monitoring and visualization of air quality data</p>
+    <div>Real-time monitoring and visualization of air quality data</div>
   </header>
 
-  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" id="nav-home">AQMonitor</a>
@@ -32,7 +32,14 @@
           <li class="nav-item">
             <a class="nav-link" href="#" id="nav-visualize">Visualize</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="nav-rank">AQ Ranking (real-time)</a>
+          </li>
         </ul>
+        <form class="d-flex ms-auto">
+          <input type="password" class="form-control me-2" id="api-key-input" placeholder="Enter API Key">
+          <button class="btn btn-primary" type="button" id="save-api-key-btn">Register</button>
+        </form>
       </div>
     </div>
   </nav>
@@ -173,6 +180,83 @@
       </div>
     </section>
 
+    <section id="ranking-section" class="container mt-5">
+      <h2 class="text-center mb-4">Air Quality Ranking Dashboard</h2>
+      <div class="row">
+        <!-- Top 4 Countries Section -->
+        <div class="col-md-6">
+          <h3 class="text-center">Top 4 Countries</h3>
+          <table class="table table-bordered table-hover">
+            <thead class="table-success">
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Country</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Country A</td>
+                <td>98765</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Country B</td>
+                <td>87654</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Country C</td>
+                <td>76543</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Country D</td>
+                <td>65432</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottom 4 Countries Section -->
+        <div class="col-md-6">
+          <h3 class="text-center">Bottom 4 Countries</h3>
+          <table class="table table-bordered table-hover">
+            <thead class="table-danger">
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Country</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Country X</td>
+                <td>12345</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Country Y</td>
+                <td>23456</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Country Z</td>
+                <td>34567</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Country W</td>
+                <td>45678</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
 
   </main>
 
@@ -187,12 +271,15 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
   <script src="utils/constants.js"></script>
+  <script src="utils/api.js"></script>
   <script src="utils/navigation.js"></script>
   <script src="utils/dataSimulation.js"></script>
   <script src="utils/chartSimulation.js"></script>
+  <script src="utils/rankingSimulation.js"></script>
+
 </body>
 
 </html>
