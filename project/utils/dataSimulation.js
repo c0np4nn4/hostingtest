@@ -1,11 +1,16 @@
 $(document).ready(function() {
+
+  if (!localStorage.getItem("API_KEY")) {
+    alert("!Important!\nYou should enter SECRET KEY before use all the features in this page");
+  }
+
   let currentCity = 'Seoul';
   $('#city-input').val(currentCity);
   $('#current-city').text(`Current city: ${currentCity}`);
 
   // Function to fetch air quality and weather data by city
   function fetchCityData(city) {
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${localStorage.getItem("API_KEY")}&units=metric`;
     $.ajax({
       url: weatherUrl,
       method: 'GET',
@@ -27,7 +32,7 @@ $(document).ready(function() {
 
   // Function to fetch air pollution data by latitude and longitude
   function fetchAirPollutionData(lat, lon) {
-    const airPollutionUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    const airPollutionUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${localStorage.getItem("API_KEY")}`;
     $.ajax({
       url: airPollutionUrl,
       method: 'GET',
@@ -143,8 +148,5 @@ $(document).ready(function() {
       alert('Please enter a city name to refresh data.');
     }
   });
-
-  // Initial fetch for default city
-  fetchCityData(currentCity);
 });
 

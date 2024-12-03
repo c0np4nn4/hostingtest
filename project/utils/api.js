@@ -1,40 +1,30 @@
-const SECRET_KEY = 'secret value'; // Replace this with a secure key
-const LOCAL_STORAGE_KEY = 'encrypted_api_key';
+const ENCRYPTED_KEY = "U2FsdGVkX19QlQ6B8ajuJjy4wsxB1rcj1hg0yQoikjfyi2Sj4KM3vtoHgmqtt2Yu4xqYCs3S5fC9ZI3HOj5Dsg=="
 
-// Encrypt the API key using AES
-function encryptApiKey(apiKey) {
-  return CryptoJS.AES.encrypt(apiKey, SECRET_KEY).toString();
-}
+// localStorage.clear();
 
 // Decrypt the API key using AES
-function decryptApiKey(encryptedApiKey) {
-  const bytes = CryptoJS.AES.decrypt(encryptedApiKey, SECRET_KEY);
+function decryptApiKey(secret_key) {
+  const bytes = CryptoJS.AES.decrypt(ENCRYPTED_KEY, secret_key).toString(CryptoJS.enc.Utf8);
+  console.log(bytes)
   return bytes.toString(CryptoJS.enc.Utf8);
 }
 
 // Save the encrypted API key to localStorage
 document.getElementById('save-api-key-btn').addEventListener('click', () => {
-  const apiKeyInput = document.getElementById('api-key-input').value.trim();
-  if (apiKeyInput) {
-    const encryptedKey = encryptApiKey(apiKeyInput);
-    localStorage.setItem(LOCAL_STORAGE_KEY, encryptedKey);
+  const secret_key = document.getElementById('api-key-input').value.trim();
+  if (secret_key) {
+    console.log('secret key input:', secret_key);
+
+    const api_key = decryptApiKey(secret_key);
+
+    console.log(localStorage.getItem("API_KEY"));
+
+    localStorage.setItem("API_KEY", api_key);
+    console.log('api key recovered', localStorage.getItem("API_KEY"));
+
     alert('API key registered successfully!');
+    alert('Now you can use all the features');
   } else {
     alert('Please enter a valid API key.');
   }
 });
-
-// Retrieve and decrypt the API key from localStorage
-function getDecryptedApiKey() {
-  const encryptedApiKey = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (encryptedApiKey) {
-    return decryptApiKey(encryptedApiKey);
-  }
-  return null;
-}
-
-// Example usage: Get the decrypted API key
-const decryptedKey = getDecryptedApiKey();
-if (decryptedKey) {
-  console.log('Decrypted API Key:', decryptedKey);
-}

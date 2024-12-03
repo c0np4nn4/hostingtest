@@ -37,8 +37,8 @@
           </li>
         </ul>
         <form class="d-flex ms-auto">
-          <input type="password" class="form-control me-2" id="api-key-input" placeholder="Enter API Key">
-          <button class="btn btn-primary" type="button" id="save-api-key-btn">Register</button>
+          <input type="password" class="form-control me-2" id="api-key-input" placeholder="Enter secret key">
+          <button class="btn btn-danger" type="button" id="save-api-key-btn">Register</button>
         </form>
       </div>
     </div>
@@ -174,13 +174,9 @@
         </div>
       </div>
       <br />
-      <div class="mt-4 text-center">
-        <input type="file" id="csv-upload" class="form-control mb-3" accept=".csv">
-        <button id="upload-csv" class="btn btn-primary">Upload CSV</button>
-      </div>
     </section>
 
-    <section id="ranking-section" class="container mt-5">
+    <section id="ranking-section" class="container mt-5" style="display: none;">
       <h2 class="text-center mb-4">Air Quality Ranking Dashboard</h2>
       <div class="row">
         <!-- Top 4 Countries Section -->

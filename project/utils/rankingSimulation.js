@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   // Function to fetch air quality and weather data by city
   function fetchData() {
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${localStorage.getItem("API_KEY")}&units=metric`;
     $.ajax({
       url: weatherUrl,
       method: 'GET',
